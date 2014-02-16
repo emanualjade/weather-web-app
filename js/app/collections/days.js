@@ -13,6 +13,7 @@ define([
       return Backbone.sync(method, model, options);
     },
     parse: function(response){
+      console.log(response);
       return response.forecast.simpleforecast.forecastday;
     }
 

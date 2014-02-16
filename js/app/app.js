@@ -1,34 +1,21 @@
 define([
   'app/views/app',
   'app/routers/router',
-  'app/models/app',
-  'app/collections/days'
-], function(AppView, Router, AppModel, DaysCollection){
+  'app/models/app'
+], function(AppView, Router, AppModel, DaysCollection, PlacesCollection){
 
   'use strict';
 
   var initialize = function(){
-    var appModel = new AppModel();
+    var appModel = new AppModel({id: 1});
     var appView = new AppView({model: appModel});
 
     $('body').append( appView.render().el );
 
     var router = new Router(appView);
     Backbone.history.start();
-
-    var daysCollection = new DaysCollection([],{
-      url: 'http://api.wunderground.com/api/ba2d4694ab9707b3/forecast/q/IT/Magenta.json'
-    });
-
-    daysCollection.fetch({
-      success: function(collection, response, options){
-        console.log(collection, response);
-      },
-      error: function(collection, response, options){
-        console.log('error');
-      }
-
-    });
+    
+    appModel.fetch()
 
   }
 
